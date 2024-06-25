@@ -15,7 +15,8 @@ final class AppCoordinator {
     }
     
     func start() {
-        let stationSearchCoordinator = DIContainer.shared.resolve(StationSearchCoordinator.self, argument: self.rootViewController)!
+        let stationSearchCoordinator = DIContainer.shared.resolve(StationSearchCoordinator.self, 
+                                                                  argument: self.rootViewController)!
         stationSearchCoordinator.start()
     }
 }
