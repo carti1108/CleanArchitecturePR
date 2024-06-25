@@ -7,29 +7,23 @@
 
 import UIKit
 
-protocol StationSearchCoordinatorDependencies {
-    func makeStationSearchViewController(actions: StationSearchViewModelActions) -> StationSearchViewController
-    func makeStationDetailViewController(station: StationDetail) -> StationDetailViewController
-}
-
-final class StationSearchCoordinator {
+final class StationSearchCoordinator: StationSearchViewControllerDelegate {
     private let presenter: UINavigationController
-    private let dependencies: StationSearchCoordinatorDependencies
     
-    init(presenter: UINavigationController, dependencies: StationSearchCoordinatorDependencies) {
+    init(presenter: UINavigationController) {
         self.presenter = presenter
-        self.dependencies = dependencies
     }
     
     func start() {
-        let actions = StationSearchViewModelActions(showStationDetail: showStationDetail)
-        let viewController = self.dependencies.makeStationSearchViewController(actions: actions)
+        let viewModel = DIContainer.shared.resolve(StationSearchViewModel.self)!
+        let viewController = StationSearchViewController(viewModel: viewModel, delegate: self)
         
         self.presenter.pushViewController(viewController, animated: true)
     }
     
-    func showStationDetail(station: StationDetail) {
-        let viewController = self.dependencies.makeStationDetailViewController(station: station)
+    func showStationDetailView(_ station: StationDetail) {
+        let viewModel = DIContainer.shared.resolve(StationDetailViewModel.self, argument: station)!
+        let viewController = StationDetailViewController(viewModel: viewModel)
         
         self.presenter.pushViewController(viewController, animated: true)
     }

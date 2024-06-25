@@ -5,19 +5,17 @@
 //  Created by Kiseok on 4/10/24.
 //
 
-struct StationSearchViewModelActions {
-    let showStationDetail: (StationDetail) -> Void
-}
+//protocol StationSearchViewModelActions {
+//    func showStationDetail(_ station: StationDetail)
+//}
 
 final class StationSearchViewModel {
     private let useCase: StationSearchUseCase
-    private let actions: StationSearchViewModelActions
     
     private(set) var stations: Observable<[StationDetail]> = .init([])
     
-    init(useCase: StationSearchUseCase, actions: StationSearchViewModelActions) {
+    init(useCase: StationSearchUseCase) {
         self.useCase = useCase
-        self.actions = actions
     }
     
     func requestStationInfo(by stationName: String) {
@@ -29,9 +27,5 @@ final class StationSearchViewModel {
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    func didSelectRow(station: StationDetail) {
-        self.actions.showStationDetail(station)
     }
 }

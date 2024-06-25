@@ -8,6 +8,10 @@
 import SnapKit
 import UIKit
 
+protocol StationSearchViewControllerDelegate {
+    func showStationDetailView(_ staion: StationDetail)
+}
+
 class StationSearchViewController: UIViewController {
     private let viewModel: StationSearchViewModel
     private let tableView: UITableView = {
@@ -16,9 +20,11 @@ class StationSearchViewController: UIViewController {
         
         return tableView
     }()
+    var delegate: StationSearchViewControllerDelegate?
     
-    init(viewModel: StationSearchViewModel) {
+    init(viewModel: StationSearchViewModel, delegate: StationSearchViewControllerDelegate) {
         self.viewModel = viewModel
+        self.delegate = delegate
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -106,6 +112,6 @@ extension StationSearchViewController: UITableViewDataSource {
 extension StationSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let station = self.viewModel.stations.value[indexPath.row]
-        self.viewModel.didSelectRow(station: station)
+        self.delegate?.showStationDetailView(station)
     }
 }
