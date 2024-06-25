@@ -9,15 +9,13 @@ import UIKit
 
 final class AppCoordinator {
     private let rootViewController: UINavigationController
-    private let diContainer: StationDIContainer
     
-    init(rootViewController: UINavigationController, diContainer: StationDIContainer) {
+    init(rootViewController: UINavigationController) {
         self.rootViewController = rootViewController
-        self.diContainer = diContainer
     }
     
     func start() {
-        let stationSearchCoordinator = diContainer.makeStationSearchCoordinator(navigationController: self.rootViewController)
+        let stationSearchCoordinator = DIContainer.shared.resolve(StationSearchCoordinator.self, argument: self.rootViewController)!
         stationSearchCoordinator.start()
     }
 }

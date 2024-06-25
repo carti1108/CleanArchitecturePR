@@ -9,7 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    let diContainer: StationDIContainer = .init()
+    var injector: DependencyInjector?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -19,7 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navigationController
         window?.backgroundColor = .systemBackground
         
-        let appCoordinator: AppCoordinator = .init(rootViewController: navigationController, diContainer: self.diContainer)
+        self.injector = DependencyInjector()
+        self.injector?.assemble([DataAssembly(), DomainAssembly(), PresentationAssembly()])
+        
+        let appCoordinator: AppCoordinator = .init(rootViewController: navigationController)
         appCoordinator.start()
         window?.makeKeyAndVisible()
     }
