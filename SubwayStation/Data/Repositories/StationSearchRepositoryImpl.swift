@@ -25,5 +25,3 @@ final class StationSearchRepositoryImpl: StationSearchRepository {
         }
     }
 }
-
-//providable 프로토콜로 의존성 주입
