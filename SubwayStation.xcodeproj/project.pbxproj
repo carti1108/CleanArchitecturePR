@@ -12,13 +12,17 @@
 		4F1146422BDF870100B869F2 /* StationArrivalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1146412BDF870100B869F2 /* StationArrivalUseCaseImpl.swift */; };
 		4F1146452BE3625200B869F2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1146442BE3625200B869F2 /* AppCoordinator.swift */; };
 		4F1146482BE363AE00B869F2 /* StationSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1146472BE363AE00B869F2 /* StationSearchCoordinator.swift */; };
+		4F29D42A2C2965DE00446300 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F29D4292C2965DE00446300 /* Assembly.swift */; };
+		4F29D42C2C29670100446300 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F29D42B2C29670100446300 /* DependencyInjector.swift */; };
+		4F29D42E2C29A6BB00446300 /* DataAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F29D42D2C29A6BB00446300 /* DataAssembly.swift */; };
+		4F29D4302C29B37100446300 /* DomainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F29D42F2C29B37100446300 /* DomainAssembly.swift */; };
+		4F29D4322C29B56C00446300 /* PresentationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F29D4312C29B56C00446300 /* PresentationAssembly.swift */; };
 		4F43095B2BB039D60024FB91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F43095A2BB039D60024FB91 /* AppDelegate.swift */; };
 		4F43095D2BB039D60024FB91 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F43095C2BB039D60024FB91 /* SceneDelegate.swift */; };
 		4F43095F2BB039D60024FB91 /* StationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F43095E2BB039D60024FB91 /* StationSearchViewController.swift */; };
 		4F4309642BB039D80024FB91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F4309632BB039D80024FB91 /* Assets.xcassets */; };
 		4F4309672BB039D80024FB91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F4309652BB039D80024FB91 /* LaunchScreen.storyboard */; };
 		4F4309702BB03A280024FB91 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4F43096F2BB03A280024FB91 /* SnapKit */; };
-		4F4309722BB03A280024FB91 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 4F4309712BB03A280024FB91 /* SnapKit-Dynamic */; };
 		4F4309792BB156EA0024FB91 /* StationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4309782BB156EA0024FB91 /* StationDetailViewController.swift */; };
 		4F43097B2BB15BB60024FB91 /* StationDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F43097A2BB15BB60024FB91 /* StationDetailCollectionViewCell.swift */; };
 		4F43097D2BB198DD0024FB91 /* StationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F43097C2BB198DD0024FB91 /* StationResponseDTO.swift */; };
@@ -41,7 +45,6 @@
 		4F733E392BD9FAE500D24E28 /* StationSearchUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F733E382BD9FAE500D24E28 /* StationSearchUseCaseImpl.swift */; };
 		4F733E3B2BD9FEAD00D24E28 /* StationSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F733E3A2BD9FEAD00D24E28 /* StationSearchRepository.swift */; };
 		4F733E3E2BDA248100D24E28 /* StationSearchRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F733E3D2BDA248100D24E28 /* StationSearchRepositoryImpl.swift */; };
-		4F733E412BDA511200D24E28 /* StationDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F733E402BDA511200D24E28 /* StationDIContainer.swift */; };
 		4F9201D02BCDEF9500BEC34C /* ProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9201CF2BCDEF9500BEC34C /* ProviderTests.swift */; };
 		4F9201D72BCDF0CF00BEC34C /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9201D62BCDF0CF00BEC34C /* MockURLProtocol.swift */; };
 		4FD449E92BFB89AF00527147 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD449E82BFB89AF00527147 /* DIContainer.swift */; };
@@ -65,6 +68,11 @@
 		4F1146412BDF870100B869F2 /* StationArrivalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationArrivalUseCaseImpl.swift; sourceTree = "<group>"; };
 		4F1146442BE3625200B869F2 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4F1146472BE363AE00B869F2 /* StationSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchCoordinator.swift; sourceTree = "<group>"; };
+		4F29D4292C2965DE00446300 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
+		4F29D42B2C29670100446300 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
+		4F29D42D2C29A6BB00446300 /* DataAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAssembly.swift; sourceTree = "<group>"; };
+		4F29D42F2C29B37100446300 /* DomainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainAssembly.swift; sourceTree = "<group>"; };
+		4F29D4312C29B56C00446300 /* PresentationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationAssembly.swift; sourceTree = "<group>"; };
 		4F4309572BB039D60024FB91 /* SubwayStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubwayStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F43095A2BB039D60024FB91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F43095C2BB039D60024FB91 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,7 +102,6 @@
 		4F733E382BD9FAE500D24E28 /* StationSearchUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchUseCaseImpl.swift; sourceTree = "<group>"; };
 		4F733E3A2BD9FEAD00D24E28 /* StationSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchRepository.swift; sourceTree = "<group>"; };
 		4F733E3D2BDA248100D24E28 /* StationSearchRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchRepositoryImpl.swift; sourceTree = "<group>"; };
-		4F733E402BDA511200D24E28 /* StationDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDIContainer.swift; sourceTree = "<group>"; };
 		4F9201CD2BCDEF9500BEC34C /* ProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9201CF2BCDEF9500BEC34C /* ProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderTests.swift; sourceTree = "<group>"; };
 		4F9201D62BCDF0CF00BEC34C /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
@@ -109,7 +116,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F4309702BB03A280024FB91 /* SnapKit in Frameworks */,
-				4F4309722BB03A280024FB91 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +135,17 @@
 				4F1146472BE363AE00B869F2 /* StationSearchCoordinator.swift */,
 			);
 			path = FlowCoordinator;
+			sourceTree = "<group>";
+		};
+		4F29D4332C29F5CC00446300 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				4F29D4292C2965DE00446300 /* Assembly.swift */,
+				4F29D42D2C29A6BB00446300 /* DataAssembly.swift */,
+				4F29D42F2C29B37100446300 /* DomainAssembly.swift */,
+				4F29D4312C29B56C00446300 /* PresentationAssembly.swift */,
+			);
+			path = Assembly;
 			sourceTree = "<group>";
 		};
 		4F43094E2BB039D60024FB91 = {
@@ -395,7 +412,8 @@
 			isa = PBXGroup;
 			children = (
 				4FD449E82BFB89AF00527147 /* DIContainer.swift */,
-				4F733E402BDA511200D24E28 /* StationDIContainer.swift */,
+				4F29D42B2C29670100446300 /* DependencyInjector.swift */,
+				4F29D4332C29F5CC00446300 /* Assembly */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
@@ -436,7 +454,6 @@
 			name = SubwayStation;
 			packageProductDependencies = (
 				4F43096F2BB03A280024FB91 /* SnapKit */,
-				4F4309712BB03A280024FB91 /* SnapKit-Dynamic */,
 			);
 			productName = SubwayStation;
 			productReference = 4F4309572BB039D60024FB91 /* SubwayStation.app */;
@@ -533,7 +550,6 @@
 				4F1146482BE363AE00B869F2 /* StationSearchCoordinator.swift in Sources */,
 				4F4309B52BC432960024FB91 /* Responsable.swift in Sources */,
 				4F4309B12BC3CFDE0024FB91 /* HttpMethod.swift in Sources */,
-				4F733E412BDA511200D24E28 /* StationDIContainer.swift in Sources */,
 				4F733E3E2BDA248100D24E28 /* StationSearchRepositoryImpl.swift in Sources */,
 				4F43097D2BB198DD0024FB91 /* StationResponseDTO.swift in Sources */,
 				4F479BB62BC6D0CE00D59F1A /* StationDetailViewModel.swift in Sources */,
@@ -546,17 +562,22 @@
 				4F43097F2BB19E7A0024FB91 /* StationArrivalDataResponseDTO.swift in Sources */,
 				4F43095B2BB039D60024FB91 /* AppDelegate.swift in Sources */,
 				4F43097B2BB15BB60024FB91 /* StationDetailCollectionViewCell.swift in Sources */,
+				4F29D4322C29B56C00446300 /* PresentationAssembly.swift in Sources */,
 				4F4309BC2BC435650024FB91 /* Provider.swift in Sources */,
 				4FD449EE2C042AA700527147 /* StationArrivalUseCase.swift in Sources */,
 				4F479BB42BC6C9A100D59F1A /* Observable.swift in Sources */,
 				4F11463E2BDF827500B869F2 /* StationArrivalRepository.swift in Sources */,
+				4F29D4302C29B37100446300 /* DomainAssembly.swift in Sources */,
 				4F733E272BD8DFCB00D24E28 /* StationInfo.swift in Sources */,
 				4F1146422BDF870100B869F2 /* StationArrivalUseCaseImpl.swift in Sources */,
 				4F733E292BD8DFD600D24E28 /* StationArrival.swift in Sources */,
+				4F29D42C2C29670100446300 /* DependencyInjector.swift in Sources */,
 				4F733E3B2BD9FEAD00D24E28 /* StationSearchRepository.swift in Sources */,
 				4F43095D2BB039D60024FB91 /* SceneDelegate.swift in Sources */,
 				4FD449E92BFB89AF00527147 /* DIContainer.swift in Sources */,
+				4F29D42A2C2965DE00446300 /* Assembly.swift in Sources */,
 				4F479BB22BC6C14A00D59F1A /* StationSearchViewModel.swift in Sources */,
+				4F29D42E2C29A6BB00446300 /* DataAssembly.swift in Sources */,
 				4F1146402BDF830800B869F2 /* StationArrivalRepositoryImpl.swift in Sources */,
 				4F479BB92BC91A3300D59F1A /* ReuseIdentifying.swift in Sources */,
 			);
@@ -860,11 +881,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4F43096E2BB03A280024FB91 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		4F4309712BB03A280024FB91 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4F43096E2BB03A280024FB91 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
