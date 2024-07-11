@@ -8,6 +8,7 @@
 import Foundation
 
 enum NetworkError: LocalizedError {
+    case unknown
     case invalidURL
     case invalidResponse
     case invalidData
@@ -16,6 +17,8 @@ enum NetworkError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
+        case .unknown:
+            "알 수 없는 에러입니다."
         case .invalidURL:
             "잘못된 URL입니다."
         case .invalidResponse:
