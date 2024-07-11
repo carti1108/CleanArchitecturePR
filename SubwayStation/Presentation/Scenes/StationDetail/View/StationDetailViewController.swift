@@ -35,12 +35,12 @@ final class StationDetailViewController: UIViewController, ReuseIdentifying {
         configureUI()
         setupLayout()
         bindViewModel()
+        configureTimer()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.viewModel.invalidateTimer()
     }
     
     init(viewModel: StationDetailViewModel) {
@@ -103,6 +103,22 @@ extension StationDetailViewController {
             action: #selector(self.viewModel.requestStationArrival),
             for: .valueChanged
         )
+    }
+    
+    private func configureTimer() {
+        Observable<Int>.interval(.seconds(10), scheduler: MainScheduler.instance)
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+                
+                self.refreshData()
+            }.disposed(by: disposeBag)
+    }
+    
+    @objc private func refreshData() {
+        self.viewModel.requestStationArrival()
+            .subscribe(onFailure: { error in
+                print(error.localizedDescription)
+            }).disposed(by: disposeBag)
     }
 }
 
