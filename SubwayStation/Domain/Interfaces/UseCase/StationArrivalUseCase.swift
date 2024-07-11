@@ -5,6 +5,8 @@
 //  Created by Kiseok on 5/27/24.
 //
 
+import RxSwift
+
 protocol StationArrivalUseCase {
-    func excute(by stationName: String, completion: @escaping (Result<StationArrival, Error>) -> Void)
+    func excute(by stationName: String) -> Single<StationArrival>
 }

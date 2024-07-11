@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol Providable {
-    func request<R: Decodable, E: RequestableAndResponsable>(with endPoint: E, completion: @escaping (Result<R, Error>) -> Void) where E.Response == R
+    func request<R: Decodable, E: RequestableAndResponsable>(with endPoint: E) -> Single<R> where E.Response == R
     
-    func request<R: Decodable>(with url: URL, completion: @escaping (Result<R, Error>) -> Void)
+    func request<R: Decodable>(with url: URL) -> Single<R>
 }
