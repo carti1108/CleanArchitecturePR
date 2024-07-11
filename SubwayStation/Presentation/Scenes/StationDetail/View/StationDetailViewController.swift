@@ -5,6 +5,8 @@
 //  Created by Kiseok on 3/25/24.
 //
 
+import RxSwift
+import RxCocoa
 import UIKit
 import SnapKit
 
@@ -26,21 +28,24 @@ final class StationDetailViewController: UIViewController, ReuseIdentifying {
         return collectionView
     }()
     
+    private var disposeBag: DisposeBag = .init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.viewModel.requestStationArrival()
         setupRefreshControl()
         setupCollectionView()
         configureUI()
         setupLayout()
         bindViewModel()
         configureTimer()
+        refreshData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        self.disposeBag = .init()
     }
     
     init(viewModel: StationDetailViewModel) {
@@ -54,14 +59,14 @@ final class StationDetailViewController: UIViewController, ReuseIdentifying {
     }
     
     private func bindViewModel() {
-        self.viewModel.realTimeArrivalList.bind { [weak self] _ in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async {
+        self.viewModel.realTimeArrivalList
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+                
                 self.collectionView.reloadData()
                 self.refreshControl.endRefreshing()
-            }
-        }
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -99,8 +104,8 @@ extension StationDetailViewController {
     
     private func setupRefreshControl() {
         self.refreshControl.addTarget(
-            self.viewModel,
-            action: #selector(self.viewModel.requestStationArrival),
+            self,
+            action: #selector(self.refreshData),
             for: .valueChanged
         )
     }
@@ -125,7 +130,11 @@ extension StationDetailViewController {
 // MARK: CollectionView DataSource
 extension StationDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.realTimeArrivalList.value.count
+        do {
+            return try self.viewModel.realTimeArrivalList.value().count
+        } catch {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -136,7 +145,9 @@ extension StationDetailViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let realTimeArrival = self.viewModel.realTimeArrivalList.value[indexPath.row]
+        guard let realTimeArrival = try? self.viewModel.realTimeArrivalList.value()[indexPath.row] else {
+            return .init()
+        }
         cell.setup(with: realTimeArrival)
         
         return cell

@@ -5,6 +5,8 @@
 //  Created by Kiseok on 3/24/24.
 //
 
+import RxSwift
+import RxCocoa
 import SnapKit
 import UIKit
 
@@ -20,6 +22,8 @@ class StationSearchViewController: UIViewController {
         
         return tableView
     }()
+    
+    private var disposeBag: DisposeBag = .init()
     var delegate: StationSearchViewControllerDelegate?
     
     init(viewModel: StationSearchViewModel, delegate: StationSearchViewControllerDelegate) {
@@ -39,17 +43,23 @@ class StationSearchViewController: UIViewController {
         configureUI()
         setupTableView()
         setupNavigationItems()
-        bindViewModel()
+        bindUI()
     }
     
-    private func bindViewModel() {
-        self.viewModel.stations.bind { [weak self] _ in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.disposeBag = .init()
+    }
+    
+    private func bindUI() {
+        self.viewModel.stations
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+                
                 self.tableView.reloadData()
-            }
-        }
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -88,17 +98,26 @@ extension StationSearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.requestStationInfo(by: searchText)
+            .subscribe(onFailure: { error in
+                print(error.localizedDescription)
+            }).disposed(by: disposeBag)
     }
 }
 
 // MARK: TableView DataSource, Delegate
 extension StationSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.stations.value.count
+        do {
+            return try self.viewModel.stations.value().count
+        } catch {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let station = self.viewModel.stations.value[indexPath.row]
+        guard let station = try? self.viewModel.stations.value()[indexPath.row] else {
+            return .init()
+        }
         let cell: UITableViewCell = .init(style: .subtitle, reuseIdentifier: "Cell")
         var content = cell.defaultContentConfiguration()
         content.text = station.stationName
@@ -111,7 +130,9 @@ extension StationSearchViewController: UITableViewDataSource {
 
 extension StationSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let station = self.viewModel.stations.value[indexPath.row]
+        guard let station = try? self.viewModel.stations.value()[indexPath.row] else {
+            return
+        }
         self.delegate?.showStationDetailView(station)
     }
 }
