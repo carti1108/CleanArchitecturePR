@@ -5,6 +5,8 @@
 //  Created by Kiseok on 4/25/24.
 //
 
+import RxSwift
+
 final class StationSearchRepositoryImpl: StationSearchRepository {
     private let provider: Providable
     
@@ -12,16 +14,10 @@ final class StationSearchRepositoryImpl: StationSearchRepository {
         self.provider = provider
     }
     
-    func fetchStationInfo(by stationName: String, completion: @escaping (Result<StationList, Error>) -> Void) {
+    func fetchStationInfo(by stationName: String) -> Single<StationList> {
         let stationAPI = StationAPIs.getStationInfo(by: stationName)
         
-        provider.request(with: stationAPI) { result in
-            switch result {
-            case .success(let data):
-                completion(.success(data.toDomain()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        return self.provider.request(with: stationAPI)
+            .map { $0.toDomain() }
     }
 }

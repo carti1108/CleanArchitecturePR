@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 final class Provider: Providable {
     private let session: URLSession
@@ -14,28 +15,30 @@ final class Provider: Providable {
         self.session = session
     }
     
-    func request<R: Decodable, E: RequestableAndResponsable>(with endPoint: E, completion: @escaping (Result<R, Error>) -> Void) where R == E.Response {
+    func request<R: Decodable, E: RequestableAndResponsable>(with endPoint: E) -> Single<R> where R == E.Response {
         do {
             let urlRequest = try endPoint.getUrlRequest()
-            self.excuteRequest(with: urlRequest, completion: completion)
+            return self.executeRequest(with: urlRequest, dataType: R.self)
         } catch {
-            completion(.failure(NetworkError.invalidRequest))
+            return Single.error(NetworkError.invalidRequest)
         }
     }
     
-    func request<R: Decodable>(with url: URL, completion: @escaping (Result<R, Error>) -> Void) {
+    func request<R: Decodable>(with url: URL) -> Single<R> {
         let urlRequest = URLRequest(url: url)
-        self.excuteRequest(with: urlRequest, completion: completion)
+        return executeRequest(with: urlRequest, dataType: R.self)
     }
     
-    private func excuteRequest<R: Decodable>(with urlRequest: URLRequest, completion: @escaping (Result<R, Error>) -> Void) {
-        session.dataTask(with: urlRequest) { [weak self] data, response, error in
-            guard let self = self else { return }
+    private func executeRequest<R: Decodable>(with urlRequest: URLRequest, dataType: R.Type) -> Single<R> {
+        return Single.create { [weak self] single in
+            guard let self = self else {
+                single(.failure(NetworkError.unknown))
+                return Disposables.create()
+            }
             
-            self.checkError(with: data, response, error) { result in
-                switch result {
+            let task = self.session.dataTask(with: urlRequest) { data, response, error in
+                switch self.checkError(with: data, response, error) {
                 case .success(let data):
-                    completion(self.decode(data: data))
                     do {
                         let data = try JSONDecoder().decode(R.self, from: data)
                         single(.success(data))
@@ -43,36 +46,34 @@ final class Provider: Providable {
                         single(.failure(NetworkError.decodedFailure))
                     }
                 case .failure(let error):
-                    completion(.failure(error))
-                    
+                    single(.failure(error))
                 }
             }
-        }.resume()
+            task.resume()
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
     }
     
-    private func checkError(with data: Data?, _ response: URLResponse?, _ error: Error?, completion: @escaping (Result<Data, Error>) -> Void) {
+    private func checkError(with data: Data?, _ response: URLResponse?, _ error: Error?) -> Result<Data, Error> {
         if let error = error {
-            completion(.failure(error))
-            return
+            return .failure(error)
         }
         
         guard let response = response as? HTTPURLResponse else {
-            completion(.failure(NetworkError.invalidResponse))
-            return
+            return .failure(NetworkError.invalidResponse)
         }
         
         guard (200...299).contains(response.statusCode) else {
-            completion(.failure(NetworkError.invalidResponse))
-            return
+            return .failure(NetworkError.invalidResponse)
         }
         
         guard let data = data else {
-            completion(.failure(NetworkError.invalidData))
-            return
+            return .failure(NetworkError.invalidData)
         }
         
-        completion(.success(data))
-    }
-    
+        return .success(data)
     }
 }

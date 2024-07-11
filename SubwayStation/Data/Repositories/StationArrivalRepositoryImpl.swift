@@ -5,6 +5,8 @@
 //  Created by Kiseok on 4/29/24.
 //
 
+import RxSwift
+
 final class StationArrivalRepositoryImpl: StationArrivalRepository {
     private let provider: Providable
     
@@ -12,16 +14,10 @@ final class StationArrivalRepositoryImpl: StationArrivalRepository {
         self.provider = provider
     }
     
-    func fetchStationArrival(by stationName: String, completion: @escaping (Result<StationArrival, Error>) -> Void) {
+    func fetchStationArrival(by stationName: String) -> Single<StationArrival> {
         let api = StationAPIs.getStationArrival(by: stationName)
         
-        provider.request(with: api) { result in
-            switch result {
-            case .success(let data):
-                completion(.success(data.toDomain()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        return self.provider.request(with: api)
+            .map { $0.toDomain() }
     }
 }

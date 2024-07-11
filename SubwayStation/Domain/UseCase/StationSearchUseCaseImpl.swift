@@ -5,6 +5,8 @@
 //  Created by Kiseok on 4/25/24.
 //
 
+import RxSwift
+
 final class StationSearchUseCaseImpl: StationSearchUseCase {
     private let stationRepository: StationSearchRepository
     
@@ -12,14 +14,7 @@ final class StationSearchUseCaseImpl: StationSearchUseCase {
         self.stationRepository = stationRepository
     }
     
-    func excute(by stationName: String, completion: @escaping (Result<StationList, Error>) -> Void) {
-        self.stationRepository.fetchStationInfo(by: stationName) { result in
-            switch result {
-            case .success(let data):
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func excute(by StationName: String) -> Single<StationList> {
+        return self.stationRepository.fetchStationInfo(by: StationName)
     }
 }
