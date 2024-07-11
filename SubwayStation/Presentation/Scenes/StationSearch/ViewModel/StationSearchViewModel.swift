@@ -9,23 +9,26 @@
 //    func showStationDetail(_ station: StationDetail)
 //}
 
+import RxSwift
+
 final class StationSearchViewModel {
     private let useCase: StationSearchUseCase
     
-    private(set) var stations: Observable<[StationDetail]> = .init([])
+    private(set) var stations: BehaviorSubject<[StationDetail]> = .init(value: [])
     
     init(useCase: StationSearchUseCase) {
         self.useCase = useCase
     }
     
-    func requestStationInfo(by stationName: String) {
-        useCase.excute(by: stationName) { result in
-            switch result {
-            case .success(let data):
-                self.stations.value = data.stations
-            case .failure(let error):
-                print(error.localizedDescription)
+    func requestStationInfo(by stationName: String) -> Single<[StationDetail]> {
+        return useCase.excute(by: stationName)
+            .map({ stationList in
+                return stationList.stations
+            })
+            .do { [weak self] result in
+                guard let self else { return }
+                
+                self.stations.onNext(result)
             }
-        }
     }
 }

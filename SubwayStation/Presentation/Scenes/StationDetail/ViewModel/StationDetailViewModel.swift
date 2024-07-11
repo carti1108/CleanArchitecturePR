@@ -5,9 +5,11 @@
 //  Created by Kiseok on 4/10/24.
 //
 
+import RxSwift
 import Foundation
 
 final class StationDetailViewModel {
+    private(set) var realTimeArrivalList: BehaviorSubject<[RealTimeArrival]> = .init(value: [])
     
     private let useCase: StationArrivalUseCase
     let station: StationDetail
@@ -17,15 +19,13 @@ final class StationDetailViewModel {
         self.useCase = useCase
     }
     
-    
-    @objc func requestStationArrival() {
-        self.useCase.excute(by: station.stationName) { result in
-            switch result {
-            case .success(let data):
-                self.realTimeArrivalList.value = data.realtimeArrivalList
-            case .failure(let error):
-                print(error.localizedDescription)
+    func requestStationArrival() -> Single<[RealTimeArrival]> {
+        return self.useCase.excute(by: station.stationName)
+            .map { $0.realtimeArrivalList }
+            .do { [weak self] result in
+                guard let self else { return }
+                
+                self.realTimeArrivalList.onNext(result)
             }
-        }
     }
 }
