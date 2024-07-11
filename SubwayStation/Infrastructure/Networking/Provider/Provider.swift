@@ -36,6 +36,12 @@ final class Provider: Providable {
                 switch result {
                 case .success(let data):
                     completion(self.decode(data: data))
+                    do {
+                        let data = try JSONDecoder().decode(R.self, from: data)
+                        single(.success(data))
+                    } catch {
+                        single(.failure(NetworkError.decodedFailure))
+                    }
                 case .failure(let error):
                     completion(.failure(error))
                     
@@ -68,13 +74,5 @@ final class Provider: Providable {
         completion(.success(data))
     }
     
-    private func decode<T: Decodable>(data: Data) -> Result<T, Error> {
-        do {
-            let decoded = try JSONDecoder().decode(T.self, from: data)
-            
-            return .success(decoded)
-        } catch {
-            return .failure(NetworkError.decodedFailure)
-        }
     }
 }
