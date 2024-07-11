@@ -37,7 +37,6 @@
 		4F4309BC2BC435650024FB91 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4309BB2BC435650024FB91 /* Provider.swift */; };
 		4F4309C02BC43D900024FB91 /* StationAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4309BF2BC43D900024FB91 /* StationAPIs.swift */; };
 		4F479BB22BC6C14A00D59F1A /* StationSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F479BB12BC6C14A00D59F1A /* StationSearchViewModel.swift */; };
-		4F479BB42BC6C9A100D59F1A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F479BB32BC6C9A100D59F1A /* Observable.swift */; };
 		4F479BB62BC6D0CE00D59F1A /* StationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F479BB52BC6D0CE00D59F1A /* StationDetailViewModel.swift */; };
 		4F479BB92BC91A3300D59F1A /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F479BB82BC91A3300D59F1A /* ReuseIdentifying.swift */; };
 		4F733E272BD8DFCB00D24E28 /* StationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F733E262BD8DFCB00D24E28 /* StationInfo.swift */; };
@@ -94,7 +93,6 @@
 		4F4309BB2BC435650024FB91 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		4F4309BF2BC43D900024FB91 /* StationAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationAPIs.swift; sourceTree = "<group>"; };
 		4F479BB12BC6C14A00D59F1A /* StationSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchViewModel.swift; sourceTree = "<group>"; };
-		4F479BB32BC6C9A100D59F1A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		4F479BB52BC6D0CE00D59F1A /* StationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDetailViewModel.swift; sourceTree = "<group>"; };
 		4F479BB82BC91A3300D59F1A /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
 		4F733E262BD8DFCB00D24E28 /* StationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationInfo.swift; sourceTree = "<group>"; };
@@ -280,7 +278,6 @@
 			isa = PBXGroup;
 			children = (
 				4F479BB82BC91A3300D59F1A /* ReuseIdentifying.swift */,
-				4F479BB32BC6C9A100D59F1A /* Observable.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -565,7 +562,6 @@
 				4F29D4322C29B56C00446300 /* PresentationAssembly.swift in Sources */,
 				4F4309BC2BC435650024FB91 /* Provider.swift in Sources */,
 				4FD449EE2C042AA700527147 /* StationArrivalUseCase.swift in Sources */,
-				4F479BB42BC6C9A100D59F1A /* Observable.swift in Sources */,
 				4F11463E2BDF827500B869F2 /* StationArrivalRepository.swift in Sources */,
 				4F29D4302C29B37100446300 /* DomainAssembly.swift in Sources */,
 				4F733E272BD8DFCB00D24E28 /* StationInfo.swift in Sources */,
