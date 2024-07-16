@@ -11,8 +11,10 @@ protocol Requestable {
     var baseURL: String { get }
     var path: String { get }
     var method: HttpMethod { get }
-    var queryParameters: Encodable? { get }
-    var bodyParameters: Encodable? { get }
+    var queryParameters: [String: Any] { get }
+    var queryParametersEncodable: Encodable? { get }
+    var bodyParameters: [String: Any] { get }
+    var bodyParametersEncodable: Encodable? { get }
     var headers: [String: String]? { get }
 }
 
@@ -21,10 +23,9 @@ extension Requestable {
         let url = try url()
         var urlRequest = URLRequest(url: url)
         
-        if let bodyParameters = try bodyParameters?.toDictionary() {
-            if !bodyParameters.isEmpty {
-                urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: bodyParameters)
-            }
+        let bodyParameters = try self.bodyParametersEncodable?.toDictionary() ?? self.bodyParameters
+        if !bodyParameters.isEmpty {
+            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: bodyParameters)
         }
         
         urlRequest.httpMethod  = method.rawValue
@@ -43,11 +44,11 @@ extension Requestable {
         }
         
         var urlQueryItems = [URLQueryItem]()
-        if let queryParameters = try queryParameters?.toDictionary() {
-            queryParameters.forEach {
-                urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
-            }
+        let queryParameters = try self.queryParametersEncodable?.toDictionary() ?? self.queryParameters
+        queryParameters.forEach {
+            urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
         }
+        
         urlComponents.queryItems = !urlQueryItems.isEmpty ? urlQueryItems : nil
         
         guard let url = urlComponents.url else {
