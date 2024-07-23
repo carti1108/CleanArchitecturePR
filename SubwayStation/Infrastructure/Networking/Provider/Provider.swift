@@ -18,18 +18,18 @@ final class Provider: Providable {
     func request<R: Decodable, E: RequestableAndResponsable>(with endPoint: E) -> Single<R> where R == E.Response {
         do {
             let urlRequest = try endPoint.getUrlRequest()
-            return self.executeRequest(with: urlRequest, dataType: R.self)
+            return self.executeRequest(with: urlRequest)
         } catch {
             return Single.error(NetworkError.invalidRequest)
         }
     }
     
-    func request<R: Decodable>(with url: URL) -> Single<R> {
+    func request(with url: URL) -> Single<Data> {
         let urlRequest = URLRequest(url: url)
-        return executeRequest(with: urlRequest, dataType: R.self)
+        return self.executeRequest(with: urlRequest)
     }
     
-    private func executeRequest<R: Decodable>(with urlRequest: URLRequest, dataType: R.Type) -> Single<R> {
+    private func executeRequest<R: Decodable>(with urlRequest: URLRequest) -> Single<R> {
         return Single.create { [weak self] single in
             guard let self = self else {
                 single(.failure(NetworkError.unknown))

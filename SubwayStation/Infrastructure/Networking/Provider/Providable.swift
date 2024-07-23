@@ -11,5 +11,5 @@ import RxSwift
 protocol Providable {
     func request<R: Decodable, E: RequestableAndResponsable>(with endPoint: E) -> Single<R> where E.Response == R
     
-    func request<R: Decodable>(with url: URL) -> Single<R>
+    func request(with url: URL) -> Single<Data>
 }
